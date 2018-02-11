@@ -1,0 +1,7 @@
+{
+  "name": "docker-windows-notifier",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Jacek Nowacki <git-public@dzek.eu>",
+  "license": "MIT"
+}
