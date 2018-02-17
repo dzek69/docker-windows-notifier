@@ -34,7 +34,7 @@ const watchVolume = (volume, service, fileName, debug) => {
     };
 
     chokidar
-        .watch(source, { ignoreInitial: true })
+        .watch(source || ".", { ignoreInitial: true })
         .on('ready', onReady)
         .on('all', onEvent)
     ;
