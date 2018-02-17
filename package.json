@@ -1,6 +1,6 @@
 {
   "name": "docker-windows-notifier",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "src/docker-windows-notifier.js",
   "bin": "src/docker-windows-notifier.js",
   "author": "Jacek Nowacki <git-public@dzek.eu>",
