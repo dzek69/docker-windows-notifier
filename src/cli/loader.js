@@ -22,7 +22,7 @@ const getServices = (available, wanted, file) => {
 };
 
 const loader = list => {
-    return Promise.all(list.map(async ({ file, containers }) => {
+    return Promise.all(list.map(async ({ file, services }) => {
         const yml = await fs.readFile(file);
         const compose = parse(String(yml));
         const availableServices = Object.entries(compose.services)
@@ -38,12 +38,12 @@ const loader = list => {
                 };
             });
         const availableNames = availableServices.map(s => s.name);
-        const servicesNamesList = getServices(availableNames, containers, file);
+        const servicesNamesList = getServices(availableNames, services, file);
         const servicesList = servicesNamesList.map((name) => {
             return availableServices.find(s => s.name === name);
         });
 
-        const services = servicesList.map(({ key, name }) => {
+        const servicesResult = servicesList.map(({ key, name }) => {
             const volumesList = compose.services[key].volumes || [];
             const volumes = volumesList.map((volume) => {
                 const [source, target] = volume.split(":");
@@ -61,7 +61,7 @@ const loader = list => {
 
         return {
             file: file,
-            services: services,
+            services: servicesResult,
         }
     }))
 };

@@ -1,0 +1,11 @@
+{
+  "name": "some-service2",
+  "version": "13.3.7",
+  "main": "test.js",
+  "author": "Jacek Nowacki <git-public@dzek.eu>",
+  "license": "MIT",
+  "dependencies": {
+    "nodemon": "^1.14.12",
+    "chokidar": "^2.0.2"
+  }
+}

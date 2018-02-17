@@ -6,3 +6,10 @@ services:
     image: dzek69/docker-windows-notifier-test
     volumes:
       - "./test:/app"
+  node:
+    container_name: test2
+    build: .
+    image: dzek69/docker-windows-notifier-test2
+    volumes:
+      - "./test2:/app"
+      - "./test2/files:/files"

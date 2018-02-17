@@ -1,8 +1,8 @@
-const validator = ({ files, containers }) => {
+const validator = ({ files, services }) => {
     const resultFiles = files.map(f => String(f));
-    const resultContainers = containers.map(c => String(c));
+    const resultServices = services.map(c => String(c));
 
-    if (resultFiles.length !== resultContainers.length) {
+    if (resultFiles.length !== resultServices.length) {
         const error = new Error(
             "Invalid count of docker-compose files or containers specified."
         );
@@ -11,7 +11,7 @@ const validator = ({ files, containers }) => {
     }
 
     return {
-        files: resultFiles, containers: resultContainers,
+        files: resultFiles, services: resultServices,
     }
 };
 

@@ -1,8 +1,8 @@
-const normalizer = ({ files, containers }) => {
+const normalizer = ({ files, services }) => {
     return files.map((file, key) => {
         return {
             file: file === "*" ? "docker-compose.yml" : file,
-            containers: containers[key].split(","),
+            services: services[key].split(","),
         }
     });
 };
