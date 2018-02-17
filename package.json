@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "chokidar": "^2.0.1",
+    "commander": "^2.14.1",
     "common-prefix": "^1.1.0",
     "fs-extra": "^5.0.0",
     "yamljs": "^0.3.0"
