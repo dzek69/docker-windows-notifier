@@ -25,7 +25,7 @@ const cliHandler = () => {
         .version("1.0.0", "-v, --version")
         .option("-f, --file [path or `*` to use docker-compose.yml]", "docker-compose files to be parsed", fileHandler, [DEFAULT])
         .option("-s, --service [name,name,...]", "services from each docker-compose file of which volumes should be monitored, comma-separated", list, [DEFAULT])
-        .option("--debug", "debug mode, just more verbose errors")
+        .option("--debug", "debug mode, more logging, more verbose errors")
     ;
 
     program.on('--help', function() {
@@ -33,7 +33,7 @@ const cliHandler = () => {
         console.log('');
         console.log('  Important:');
         console.log('');
-        console.log('    - Start your Docker containers before running this program to avoid errors being printed');
+        console.log('    - Start your Docker containers before running this program to avoid triggering a lot of notifications that are created during setup phase of your containers. I feel this may even crash your container start-up sometimes. Better safe than sorry');
         console.log('    - Commands are sent to containers via `container_name` specified in docker-compose service, so make sure to define names before using this program');
         console.log('    - Program is tested with relative to docker-compose paths only');
         console.log('    - If your watch paths are overlapping (ie: ./test and ./test/files) or are duplicated then notifications will be triggered more than once for single change');

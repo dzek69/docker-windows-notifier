@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 const cliHandler = require("./cliHandler");
 const watch = require("./watch");
 

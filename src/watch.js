@@ -29,7 +29,7 @@ const watchVolume = (volume, service, fileName, debug) => {
             console.log(`+ Triggered notification for ${path}`);
         }
         catch (e) {
-            console.error(`! Can not trigger notification for ${path}: ${(debug && e.message) || e.stack}`);
+            console.error(`! Can not trigger notification for ${path}: ${(debug && e.stack) || e.message}`);
         }
     };
 
