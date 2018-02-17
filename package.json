@@ -1,7 +1,16 @@
 {
   "name": "docker-windows-notifier",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/index.js",
   "author": "Jacek Nowacki <git-public@dzek.eu>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^1.14.12"
+  },
+  "dependencies": {
+    "chokidar": "^2.0.1",
+    "common-prefix": "^1.1.0",
+    "fs-extra": "^5.0.0",
+    "yamljs": "^0.3.0"
+  }
 }
