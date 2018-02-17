@@ -14,7 +14,7 @@ const getServices = (available, wanted, file) => {
     };
 
     if (!wanted.every(isAvailable)) {
-        const error = new Error(`"${lastChecked}" service isn't available in "${file}"`);
+        const error = new Error(`"${lastChecked}" service isn't available in "${file}", did you mixed service key with container_name?`);
         error.safe = true;
         throw error;
     }

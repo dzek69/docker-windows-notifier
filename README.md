@@ -23,15 +23,17 @@ Pros:
 Cons:
 - slower install
 - requires `npm` and `node` to be installed on Windows host
+- annoying `Terminate batch job (Y/N)?` on CTRL+C
 
-### Slower way
-Alternatively just download pre-build binaries from GitHub Releases.
+### Better way
+Alternatively just [download pre-build binaries](https://github.com/dzek69/docker-windows-notifier/releases) from GitHub Releases.
 
-You'll need to save this file to some directory that is in PATH environment variable of your system.
+You'll need to save this file to some directory that is in PATH environment variable of your system or modify PATH.
 
 Pros:
 - faster to update, just save in proper place
 - doesn't require `npm` or `node` to be installed
+- no `Terminate batch job (Y/N)?` on CTRL+C
 
 Cons:
 - requires manual PATH set-up or calling with full path
@@ -56,6 +58,7 @@ Let me just copy-paste `docker-windows-notifier --help` here:
   Important:
 
     - Start your Docker containers before running this program to avoid triggering a lot of notifications that are created during setup phase of your containers. I feel this may even crash your container start-up sometimes. Better safe than sorry
+    - Run this when current working directory is the same as docker-compose file location
     - Commands are sent to containers via `container_name` specified in docker-compose service, so make sure to define names before using this program
     - Program is tested with relative to docker-compose paths only
     - If your watch paths are overlapping (ie: ./test and ./test/files) or are duplicated then notifications will be triggered more than once for single change
@@ -93,11 +96,21 @@ notified back (like it would with `touch` for example) so it doesn't get into in
 I found `docker-windows-volume-watcher` to be troublesome. It just throws errors with both Python 2 and Python 3 and it
 looks I am not alone with this.
 
+Also the usage is not the same, mine version focuses on docker-compose files.
+
 ## Limitations
 
 Same as `docker-windows-volume-watcher`:
 - file deletions are not propageted (but this probably could be worked around, we'll see)
 - `stat` and `chmod` are required on containers, but I didn't heard about Linux not having those
+
+Plus:
+- `cwd` should be the same as location of `docker-compose` file (this may be fixed in the future if needed)
+
+## Some words for people looking for help:
+
+Docker windows doesn't refresh or reload. Windows docker synchronization problem.
+Windows docker with webpack. File system watch does not work with mounted volumes.
 
 ## License
 

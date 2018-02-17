@@ -34,6 +34,7 @@ const cliHandler = () => {
         console.log('  Important:');
         console.log('');
         console.log('    - Start your Docker containers before running this program to avoid triggering a lot of notifications that are created during setup phase of your containers. I feel this may even crash your container start-up sometimes. Better safe than sorry');
+        console.log('    - Run this when current working directory is the same as docker-compose file location');
         console.log('    - Commands are sent to containers via `container_name` specified in docker-compose service, so make sure to define names before using this program');
         console.log('    - Program is tested with relative to docker-compose paths only');
         console.log('    - If your watch paths are overlapping (ie: ./test and ./test/files) or are duplicated then notifications will be triggered more than once for single change');

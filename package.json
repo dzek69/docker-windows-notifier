@@ -21,5 +21,8 @@
     "release": "release.bat",
     "docker:start": "docker-compose up --build",
     "start": "node ."
-  }
+  },
+  "files": [
+    "src/**/*"
+  ]
 }
