@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "src/index.js",
   "author": "Jacek Nowacki <git-public@dzek.eu>",
+  "repository": "https://github.com/dzek69/docker-windows-notifier.git",
   "license": "MIT",
   "devDependencies": {
     "nodemon": "^1.14.12"
