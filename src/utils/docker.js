@@ -2,7 +2,7 @@ const run = require("./run");
 
 const getPrivileges = async (container, file) => {
     try {
-        const { stdout, stderr } = await run(`docker exec -i ${container} stat -c %a ${file}`);
+        const { stdout, stderr } = await run(`docker exec ${container} stat -c %a ${file}`);
         if (stderr) {
             throw new Error(stderr);
         }
@@ -17,7 +17,7 @@ const getPrivileges = async (container, file) => {
 
 const setPrivileges = async (container, file, privileges) => {
     try {
-        const { stdout, stderr } = await run(`docker exec -i ${container} chmod ${privileges} ${file}`);
+        const { stdout, stderr } = await run(`docker exec ${container} chmod ${privileges} ${file}`);
         if (stderr) {
             throw new Error(stderr);
         }
