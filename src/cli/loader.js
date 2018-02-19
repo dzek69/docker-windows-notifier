@@ -21,10 +21,39 @@ const getServices = (available, wanted, file) => {
     return wanted;
 };
 
+const getSourceType = (source, definedType) => {
+    if (definedType && definedType !== "bind") {
+        return definedType;
+    }
+    if (!source.includes("/") && !source.includes("\\")) {
+        return "volume";
+    }
+    return "bind";
+};
+
+const parseVolume = volume => {
+    if (typeof volume === "string") {
+        const [source, target] = volume.split(":");
+        if (!target) {
+            return { source: null, target: source, type: "volume" };
+        }
+        const type = getSourceType(source);
+        return { source, target, type };
+    }
+    const { source, target } = volume;
+    const type = getSourceType(source, volume.type);
+    return { source, target, type };
+};
+
 const loader = list => {
     return Promise.all(list.map(async ({ file, services }) => {
         const yml = await fs.readFile(file);
         const compose = parse(String(yml));
+        if (Math.floor(Number(compose.version)) !== 3) {
+            const error = new Error(`Only version 3 of docker compose files are supported, unsupported version in file: ${file}`);
+            error.safe = true;
+            throw error;
+        }
         const availableServices = Object.entries(compose.services)
             .map(([serviceKey, serviceData]) => {
                 if (!serviceData.container_name) {
@@ -46,14 +75,18 @@ const loader = list => {
         const servicesResult = servicesList.map(({ key, name }) => {
             const volumesList = compose.services[key].volumes || [];
             const volumes = volumesList.map((volume) => {
-                const [source, target] = volume.split(":");
+                const { source, target, type } = parseVolume(volume);
+                if (type !== "bind") {
+                    console.log(`- Skipping ${target} from ${key} service of ${file} as it's not bind volume`);
+                    return;
+                }
                 const sourcePath = normalizePath(source);
                 const targetPath = normalizePath(target);
                 return {
                     source: sourcePath,
                     target: targetPath,
                 }
-            });
+            }).filter(Boolean);
             return {
                 name, volumes,
             }

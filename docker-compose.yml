@@ -1,4 +1,4 @@
-version: "3"
+version: "3.2"
 services:
   web:
     container_name: web1
@@ -11,5 +11,16 @@ services:
     build: .
     image: dzek69/docker-windows-notifier-test2
     volumes:
-      - "./test2:/app"
+      - "volume_not_bind:/tmp"
       - "./test2/files:/files"
+      - type: bind
+        source: ./test2
+        target: /app
+      - type: volume
+        source: test_volume
+        target: /test_volume
+      - "/will_be_a_volume_too"
+
+volumes:
+  test_volume:
+  volume_not_bind:

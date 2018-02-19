@@ -22,7 +22,7 @@ const cliHandler = () => {
     const program = require("commander");
 
     program
-        .version("1.0.2", "-v, --version")
+        .version("1.1.0", "-v, --version")
         .option("-f, --file [path or `*` to use docker-compose.yml]", "docker-compose files to be parsed", fileHandler, [DEFAULT])
         .option("-s, --service [name,name,...]", "services from each docker-compose file of which volumes should be monitored, comma-separated", list, [DEFAULT])
         .option("--debug", "debug mode, more logging, more verbose errors")
@@ -33,6 +33,7 @@ const cliHandler = () => {
         console.log('');
         console.log('  Important:');
         console.log('');
+        console.log('    - Only version 3 of docker-compose files are supported');
         console.log('    - Start your Docker containers before running this program to avoid triggering a lot of notifications that are created during setup phase of your containers. I feel this may even crash your container start-up sometimes. Better safe than sorry');
         console.log('    - Run this when current working directory is the same as docker-compose file location');
         console.log('    - Commands are sent to containers via `container_name` specified in docker-compose service, so make sure to define names before using this program');

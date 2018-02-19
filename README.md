@@ -57,6 +57,7 @@ Let me just copy-paste `docker-windows-notifier --help` here:
 
   Important:
 
+    - Only version 3 of docker-compose files are supported
     - Start your Docker containers before running this program to avoid triggering a lot of notifications that are created during setup phase of your containers. I feel this may even crash your container start-up sometimes. Better safe than sorry
     - Run this when current working directory is the same as docker-compose file location
     - Commands are sent to containers via `container_name` specified in docker-compose service, so make sure to define names before using this program
