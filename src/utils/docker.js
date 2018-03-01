@@ -1,23 +1,11 @@
 const run = require("./run");
 
-const getPrivileges = async (container, file) => {
+const resetPrivileges = async (container, file) => {
     try {
-        const { stdout, stderr } = await run(`docker exec ${container} stat -c %a ${file}`);
-        if (stderr) {
-            throw new Error(stderr);
-        }
-        return stdout.trim();
-    }
-    catch (e) {
-        const error = new Error(`Cannot read chmod from ${file}`);
-        error.details = e;
-        throw error;
-    }
-};
+        file = file.replace(/'/g, `'"'"'`); // Thanks https://stackoverflow.com/a/1250279
 
-const setPrivileges = async (container, file, privileges) => {
-    try {
-        const { stdout, stderr } = await run(`docker exec ${container} chmod ${privileges} ${file}`);
+        const command = `docker exec ${container} sh -c 'chmod $(stat -c %a "${file}") "${file}"'`;
+        const { stdout, stderr } = await run(command);
         if (stderr) {
             throw new Error(stderr);
         }
@@ -31,6 +19,5 @@ const setPrivileges = async (container, file, privileges) => {
 };
 
 module.exports = {
-    getPrivileges,
-    setPrivileges,
+    resetPrivileges,
 };

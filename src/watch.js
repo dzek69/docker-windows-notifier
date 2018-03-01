@@ -4,7 +4,7 @@ const dropCommonPrefix = require("./utils/dropCommonPrefix");
 const normalizePath = require("./utils/normalizePath");
 const join = require("./utils/unixJoin");
 
-const { getPrivileges, setPrivileges } = require("./utils/docker");
+const { resetPrivileges } = require("./utils/docker");
 
 const watchVolume = (volume, service, fileName, debug) => {
     const { source, target } = volume;
@@ -24,8 +24,7 @@ const watchVolume = (volume, service, fileName, debug) => {
         const targetFile = join(target, targetUpdatePath);
 
         try {
-            const privileges = await getPrivileges(service.name, targetFile);
-            await setPrivileges(service.name, targetFile, privileges);
+            await resetPrivileges(service.name, targetFile);
             console.log(`+ Triggered notification for ${path}`);
         }
         catch (e) {
