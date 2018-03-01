@@ -2,7 +2,10 @@ const run = require("./run");
 
 const resetPrivileges = async (container, file) => {
     try {
-        const { stdout, stderr } = await run(`docker exec ${container} chmod $(stat -c %a ${file}) ${file}`);
+        file = file.replace(/'/g, `'"'"'`); // Thanks https://stackoverflow.com/a/1250279
+
+        const command = `docker exec ${container} sh -c 'chmod $(stat -c %a "${file}") "${file}"'`;
+        const { stdout, stderr } = await run(command);
         if (stderr) {
             throw new Error(stderr);
         }
