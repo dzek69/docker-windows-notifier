@@ -22,7 +22,7 @@ const cliHandler = () => {
     const program = require("commander");
 
     program
-        .version("1.1.0", "-v, --version")
+        .version("1.1.1", "-v, --version")
         .option("-f, --file [path or `*` to use docker-compose.yml]", "docker-compose files to be parsed", fileHandler, [DEFAULT])
         .option("-s, --service [name,name,...]", "services from each docker-compose file of which volumes should be monitored, comma-separated", list, [DEFAULT])
         .option("--debug", "debug mode, more logging, more verbose errors")
