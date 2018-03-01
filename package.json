@@ -20,7 +20,7 @@
   "scripts": {
     "release": "release.bat",
     "docker:start": "docker-compose up --build",
-    "start": "node ."
+    "start": "nodemon --watch src ."
   },
   "files": [
     "src/**/*"
