@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - way of forcing file change catch, it should be a little bit faster now
 ### Added
 - Changelog file
+### Fixed
+- Support for spaces and single quotes in filenames (double quotes aren't valid on Windows anyway)
 
 ## [1.1.0] - 2018-02-19
 ### Added
