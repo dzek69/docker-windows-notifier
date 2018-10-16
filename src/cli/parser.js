@@ -26,6 +26,7 @@ const cliHandler = () => {
         .option("-f, --file [path or `*` to use docker-compose.yml]", "docker-compose files to be parsed", fileHandler, [DEFAULT])
         .option("-s, --service [name,name,...]", "services from each docker-compose file of which volumes should be monitored, comma-separated", list, [DEFAULT])
         .option("--debug", "debug mode, more logging, more verbose errors")
+        .option("--disable-update-check", "disables checking if there is a new version on startup")
     ;
 
     program.on('--help', function() {
@@ -63,11 +64,12 @@ const cliHandler = () => {
 
     program.parse(process.argv);
 
-    const { service, file, debug } = program;
+    const { service, file, debug, disableUpdateCheck } = program;
     return {
         files: file,
         services: service,
         debug: debug,
+        disableUpdateCheck: disableUpdateCheck,
     };
 };
 

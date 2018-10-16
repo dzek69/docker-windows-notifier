@@ -11,6 +11,7 @@ const handler = async () => {
     return {
         verbose: parsed.debug,
         files: loaded,
+        disableUpdateCheck: parsed.disableUpdateCheck,
     };
 
 };

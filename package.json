@@ -1,6 +1,6 @@
 {
   "name": "docker-windows-notifier",
-  "version": "1.1.1",
+  "version": "1.2.0-unreleased.0",
   "main": "src/docker-windows-notifier.js",
   "bin": "src/docker-windows-notifier.js",
   "author": "Jacek Nowacki <git-public@dzek.eu>",
@@ -11,10 +11,12 @@
     "pkg": "^4.3.0"
   },
   "dependencies": {
-    "chokidar": "^2.0.1",
+    "chokidar": "^2.0.4",
     "commander": "^2.14.1",
     "common-prefix": "^1.1.0",
     "fs-extra": "^5.0.0",
+    "node-fetch": "^2.2.0",
+    "semver": "^5.6.0",
     "yamljs": "^0.3.0"
   },
   "scripts": {
