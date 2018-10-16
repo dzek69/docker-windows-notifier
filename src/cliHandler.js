@@ -1,3 +1,5 @@
+"use strict";
+
 const parser = require("./cli/parser");
 const validator = require("./cli/validator");
 const normalizer = require("./cli/normalizer");
@@ -13,7 +15,6 @@ const handler = async () => {
         files: loaded,
         disableUpdateCheck: parsed.disableUpdateCheck,
     };
-
 };
 
 module.exports = handler;

@@ -1,3 +1,5 @@
+"use strict";
+
 const run = require("./run");
 
 const resetPrivileges = async (container, file) => {

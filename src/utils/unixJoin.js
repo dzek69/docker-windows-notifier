@@ -1,9 +1,13 @@
+"use strict";
+
 const trimSlashes = s => s.replace(/^\/+|\/+$/g, "");
 const trimEndSlashes = s => s.replace(/\/+$/g, "");
 const singlifySlashes = s => s.replace(/\/{2,}/g, "/");
 
-const join = (... args) => {
-    let first = true;
+const join = (...args) => {
+    let first;
+
+    first = true;
     return args.map(arg => {
         if (!first) {
             return singlifySlashes(trimSlashes(arg));

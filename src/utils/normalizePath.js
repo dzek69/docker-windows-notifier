@@ -1,3 +1,5 @@
+"use strict";
+
 class Normalizer {
     constructor(path) {
         this.path = path;
@@ -14,7 +16,7 @@ class Normalizer {
 
     clearDots() {
         const absolute = this.path.substr(0, 1) === "/" ? "/" : "";
-        this.path = absolute + this.path.split("/").filter(Boolean).filter(p => p !== ".").join("/");     return this;
+        this.path = absolute + this.path.split("/").filter(Boolean).filter(p => p !== ".").join("/"); return this;
     }
 }
 

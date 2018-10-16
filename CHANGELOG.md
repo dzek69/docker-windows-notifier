@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - chokidar updated to support developing this package with Node 10
 ### Added
 - new version check
+- code style enforced with eslint
 
 ## [1.1.1] - 2018-03-01
 ### Changed

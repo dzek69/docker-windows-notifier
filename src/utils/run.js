@@ -1,3 +1,5 @@
+"use strict";
+
 const { exec } = require("child_process");
 const ensureError = require("./ensureError");
 
@@ -11,7 +13,7 @@ const run = command => {
             resolve({
                 stdout, stderr,
             });
-        })
+        });
     });
 };
 

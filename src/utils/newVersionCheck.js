@@ -1,3 +1,5 @@
+"use strict";
+
 const semver = require("semver");
 const fetch = require("node-fetch");
 

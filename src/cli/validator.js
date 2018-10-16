@@ -1,10 +1,12 @@
+"use strict";
+
 const validator = ({ files, services }) => {
     const resultFiles = files.map(f => String(f));
     const resultServices = services.map(c => String(c));
 
     if (resultFiles.length !== resultServices.length) {
         const error = new Error(
-            "Invalid count of docker-compose files or containers specified."
+            "Invalid count of docker-compose files or containers specified.",
         );
         error.safe = true;
         throw error;
@@ -12,7 +14,7 @@ const validator = ({ files, services }) => {
 
     return {
         files: resultFiles, services: resultServices,
-    }
+    };
 };
 
 module.exports = validator;

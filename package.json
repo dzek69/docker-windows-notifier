@@ -7,6 +7,8 @@
   "repository": "https://github.com/dzek69/docker-windows-notifier.git",
   "license": "MIT",
   "devDependencies": {
+    "@dzek69/eslint-config-base": "^0.0.1",
+    "eslint": "^5.7.0",
     "nodemon": "^1.14.12",
     "pkg": "^4.3.0"
   },
@@ -22,7 +24,9 @@
   "scripts": {
     "release": "release.bat",
     "docker:start": "docker-compose up --build",
-    "start": "nodemon --watch src ."
+    "start": "nodemon --watch src .",
+    "lint": "eslint src/**/*.js src/*.js",
+    "lint:fix": "npm run lint -- --fix"
   },
   "files": [
     "src/**/*"

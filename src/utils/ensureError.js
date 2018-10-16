@@ -1,3 +1,5 @@
+"use strict";
+
 const ensureError = e => {
     if (e instanceof Error) {
         return e;

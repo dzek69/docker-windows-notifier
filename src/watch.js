@@ -1,3 +1,5 @@
+"use strict";
+
 const chokidar = require("chokidar");
 
 const dropCommonPrefix = require("./utils/dropCommonPrefix");
@@ -9,14 +11,19 @@ const { resetPrivileges } = require("./utils/docker");
 const watchVolume = (volume, service, fileName, debug) => {
     const { source, target } = volume;
 
-    console.log(`- Using "${source}" path from "${service.name}" service defined in "${fileName}" as watch root that will cause updates in "${target}"`);
+    console.info(
+        `- Using "${source}" path from "${service.name}" service defined in `
+        + `"${fileName}" as watch root that will cause updates in "${target}"`,
+    );
 
     const onReady = () => {
-        console.log(`- Watching for changes in "${source}" from "${service.name}" service defined in "${fileName}" is ready`);
+        console.info(
+            `- Watching for changes in "${source}" from "${service.name}" service defined in "${fileName}" is ready`,
+        );
     };
 
     const onEvent = async (event, path) => {
-        debug && console.log(`+ File ${path} got ${event} event`);
+        debug && console.info(`+ File ${path} got ${event} event`);
 
         const changedPath = normalizePath(path);
         const targetUpdatePath = dropCommonPrefix(changedPath, source);
@@ -25,7 +32,7 @@ const watchVolume = (volume, service, fileName, debug) => {
 
         try {
             await resetPrivileges(service.name, targetFile);
-            console.log(`+ Triggered notification for ${path}`);
+            console.info(`+ Triggered notification for ${path}`);
         }
         catch (e) {
             console.error(`! Can not trigger notification for ${path}: ${(debug && e.stack) || e.message}`);
@@ -34,10 +41,8 @@ const watchVolume = (volume, service, fileName, debug) => {
 
     chokidar
         .watch(source || ".", { ignoreInitial: true })
-        .on('ready', onReady)
-        .on('all', onEvent)
-    ;
-
+        .on("ready", onReady)
+        .on("all", onEvent);
 };
 
 const watchService = (service, fileName, debug) => {
