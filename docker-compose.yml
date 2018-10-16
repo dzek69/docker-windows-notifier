@@ -5,7 +5,7 @@ services:
     build: .
     image: dzek69/docker-windows-notifier-test
     volumes:
-      - "./test:/app"
+      - "./${TEST_FOLDER_PATH}:/app"
   node:
     container_name: test2
     build: .

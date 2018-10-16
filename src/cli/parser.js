@@ -20,11 +20,11 @@ const fileHandler = (value, arr) => {
     return arr;
 };
 
-const cliHandler = () => { // eslint-disable-line max-lines-per-function
+const cliHandler = (appVersion) => { // eslint-disable-line max-lines-per-function
     const program = require("commander"); // eslint-disable-line global-require
 
     program
-        .version("1.1.1", "-v, --version")
+        .version(appVersion, "-v, --version")
         .option(
             "-f, --file [path or `*` to use docker-compose.yml]",
             "docker-compose files to be parsed",
@@ -43,6 +43,7 @@ const cliHandler = () => { // eslint-disable-line max-lines-per-function
         console.info("");
         console.info("  Important:");
         console.info("");
+        console.info("    - docker-compose is now required to be installed and globally available as `docker-compose`");
         console.info("    - Only version 3 of docker-compose files are supported");
         console.info("    - Start your Docker containers before running this program to avoid triggering a lot of notifications that are created during setup phase of your containers. I feel this may even crash your container start-up sometimes. Better safe than sorry");
         console.info("    - Run this when current working directory is the same as docker-compose file location");
@@ -60,6 +61,7 @@ const cliHandler = () => { // eslint-disable-line max-lines-per-function
         console.info("    - You can pass -s * to watch every service");
         console.info("    - You can pass just -f or -s argument");
         console.info("    - Selecting volumes to watch is currently not supported");
+        console.info("    - Environmental variables are now read from .env and system environment when parsing volumes. This however doesn't apply to `env_file` config. This is a docker-compose limitation.");
         console.info("");
         console.info("");
         console.info("  Examples:");

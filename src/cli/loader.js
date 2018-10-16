@@ -1,8 +1,8 @@
 "use strict";
 
-const fs = require("fs-extra");
 const { parse } = require("yamljs");
 const normalizePath = require("../utils/normalizePath");
+const run = require("../utils/run");
 
 const getServices = (available, wanted, file) => {
     if (wanted[0] === "*") {
@@ -36,6 +36,8 @@ const getSourceType = (source, definedType) => {
     return "bind";
 };
 
+const AMBIGUOUS_VOLUME_PATH = { __: "AVP" }; // it's just for reference check anyway
+
 const parseVolume = volume => {
     if (typeof volume === "string") {
         return parseVolume.string(volume);
@@ -43,7 +45,17 @@ const parseVolume = volume => {
     return parseVolume.object(volume);
 };
 parseVolume.string = (volume) => {
-    const [source, target] = volume.split(":");
+    const MAX_PARSEABLE_PARTS = 4;
+    const parts = volume.split(":");
+    if (parts.length > MAX_PARSEABLE_PARTS) {
+        return {
+            type: AMBIGUOUS_VOLUME_PATH,
+            target: parts[parts.length - 2], // eslint-disable-line no-magic-numbers
+        };
+    }
+    parts.pop(); // mode, not needed
+    const target = parts.pop();
+    const source = parts.join(":");
     if (!target) {
         return { source: null, target: source, type: "volume" };
     }
@@ -61,7 +73,12 @@ const COMPOSE_SUPPORTED_VERSION = 3;
 // @TODO split the function
 const loader = list => { // eslint-disable-line max-lines-per-function
     return Promise.all(list.map(async ({ file, services }) => { // eslint-disable-line max-lines-per-function
-        const yml = await fs.readFile(file);
+        const { stdout: yml } = await run.file("docker-compose", [
+            "-f",
+            file,
+            "config",
+        ]);
+
         const compose = parse(String(yml));
         if (Math.floor(Number(compose.version)) !== COMPOSE_SUPPORTED_VERSION) {
             const error = new Error(
@@ -94,6 +111,13 @@ const loader = list => { // eslint-disable-line max-lines-per-function
                 const { source, target, type } = parseVolume(volume);
                 if (type !== "bind") {
                     console.info(`- Skipping ${target} from ${key} service of ${file} as it's not bind volume`);
+                    return;
+                }
+                if (type === AMBIGUOUS_VOLUME_PATH) {
+                    console.info(
+                        `- Skipping ${target} from ${key} service of ${file} as it cannot be parsed from string. `
+                        + `Too much colons. Please use long volume format.`,
+                    );
                     return;
                 }
                 const sourcePath = normalizePath(source);

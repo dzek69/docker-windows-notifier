@@ -9,7 +9,7 @@ const newVersionCheck = require("./utils/newVersionCheck");
 const app = require("../package.json");
 
 const main = async () => {
-    const result = await cliHandler();
+    const result = await cliHandler(app.version);
     await watch(result.files, result.verbose);
     if (!result.disableUpdateCheck) {
         await newVersionCheck(app.version).then(
