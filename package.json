@@ -1,6 +1,6 @@
 {
   "name": "docker-windows-notifier",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "main": "src/docker-windows-notifier.js",
   "bin": "src/docker-windows-notifier.js",
   "author": "Jacek Nowacki <git-public@dzek.eu>",
@@ -10,7 +10,7 @@
     "@dzek69/eslint-config-base": "^0.0.1",
     "eslint": "^5.7.0",
     "nodemon": "^1.14.12",
-    "pkg": "^4.3.0"
+    "pkg": "^4.4.0"
   },
   "dependencies": {
     "chokidar": "^2.0.4",
