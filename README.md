@@ -1,3 +1,7 @@
+> DEPRECATION NOTICE
+
+It seems like this is now corrected in Docker (at least for `19.03.5`) and this app is no longer needed. Consider this repo to be deprecated, but the app is still useful for those that are stuck with older Docker versions.
+
 # Docker Windows Notifier
 
 This program is watching your Windows Docker mounts for changes and notifies containers about that.
